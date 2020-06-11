@@ -12,11 +12,11 @@ More information on Kafka Producers can be found [here](http://kafka.apache.org/
  | NeoLoad  | 6.1 (Enterprise or Professional Edition w/ Integration & Advanced Usage and NeoLoad Web option required)|
  | Requirements | |
  | Bundled in NeoLoad | No
- | Download Binaries | See the [latest release](https://github.com/ttheol/kafka/releases/latest)
+ | Download Binaries | See the [latest release](https://github.com/Neotys-Labs/kafka/releases/latest)
  
  ## Installation
  
- 1. Download the [latest release](https://github.com/ttheol/kafka/releases/latest)
+ 1. Download the [latest release](https://github.com/Neotys-Labs/kafka/releases/latest)
  1. Read the NeoLoad documentation to see [How to install a custom Advanced Action](https://www.neotys.com/documents/doc/neoload/latest/en/html/#25928.htm)
  
  ## Usage
