@@ -44,3 +44,6 @@ Other possible parameters : ssl.key.password, ssl.keystore.location, ssl.keystor
 * NL-KafkaProducer-01
 * NL-KafkaProducer-02
 * NL-KafkaProducer-03
+
+## Contributing
+Feel free to fork this repo, make changes, test locally, and create a pull request to contribute back.
