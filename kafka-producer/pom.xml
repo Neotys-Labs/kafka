@@ -5,7 +5,7 @@
     <groupId>com.neotys.advanced.action.apache.kafka</groupId>
     <artifactId>kafka-producer</artifactId>
     <name>kafka-producer</name>
-    <version>1.0.0</version>
+    <version>0.1.0</version>
 
     <properties>
         <neoload.folder>/Applications/NeoLoad 6.5</neoload.folder>
