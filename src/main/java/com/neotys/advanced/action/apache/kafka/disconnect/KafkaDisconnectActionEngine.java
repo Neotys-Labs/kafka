@@ -33,12 +33,7 @@ public final class KafkaDisconnectActionEngine implements ActionEngine {
         final StringBuilder requestBuilder = new StringBuilder();
         final StringBuilder responseBuilder = new StringBuilder();
 
-        try {
-            parseParameters(parameters);
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
-        }
-
+        parseParameters(parameters);
         appendLineToStringBuilder(requestBuilder, "Kafka Disconnect request");
         appendLineToStringBuilder(requestBuilder, "Connection name: " + this.connectionName);
 

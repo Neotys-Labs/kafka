@@ -13,8 +13,6 @@ import org.apache.kafka.common.header.internals.RecordHeader;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +23,6 @@ import static java.util.Collections.unmodifiableSet;
 import static java.util.stream.Collectors.toSet;
 
 public final class KafkaSendActionEngine implements ActionEngine {
-    private final static Logger LOGGER = Logger.getLogger(KafkaSendActionEngine.class.getName());
     private String topic;
     private String message;
     private String key;
@@ -69,11 +66,7 @@ public final class KafkaSendActionEngine implements ActionEngine {
         final StringBuilder requestBuilder = new StringBuilder();
         final StringBuilder responseBuilder = new StringBuilder();
 
-        try {
-            parseParameters(parameters);
-        } catch (ClassNotFoundException classNotFoundException) {
-            LOGGER.log(Level.WARNING, "Error while parsing parameters", classNotFoundException);
-        }
+        parseParameters(parameters);
 
         appendLineToStringBuilder(requestBuilder, "Kafka message send request");
         appendLineToStringBuilder(requestBuilder, "Connection name: " + this.connectionName);

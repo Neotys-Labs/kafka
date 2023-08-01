@@ -10,16 +10,12 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static java.lang.String.format;
 
 public final class KafkaConnectActionEngine implements ActionEngine {
     private Properties props;
     private String connectionName;
-    private static final Logger LOGGER = Logger.getLogger(KafkaConnectActionEngine.class.getName());
-
     private void parseParameters(List<ActionParameter> parameters) {
         this.props = new Properties();
         this.props.put("key.serializer", StringSerializer.class);
@@ -44,11 +40,8 @@ public final class KafkaConnectActionEngine implements ActionEngine {
         final SampleResult sampleResult = new SampleResult();
         final StringBuilder requestBuilder = new StringBuilder();
 
-        try {
-            parseParameters(parameters);
-        } catch (ClassNotFoundException classNotFoundException) {
-            LOGGER.log(Level.WARNING, "Error while parsing parameters", classNotFoundException);
-        }
+        parseParameters(parameters);
+
 
         appendLineToStringBuilder(requestBuilder, "Kafka connect request");
         appendLineToStringBuilder(requestBuilder, "Connection name: " + this.connectionName);
