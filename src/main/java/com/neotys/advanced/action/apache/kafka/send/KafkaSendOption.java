@@ -9,8 +9,8 @@ enum KafkaSendOption implements com.neotys.action.argument.Option {
     ConnectionName("connectionName", Option.OptionalRequired.Required, Option.AppearsByDefault.True, ActionParameter.Type.TEXT, "myConnection", "The name of the connection to map with other advanced actions.", DefaultArgumentValidator.NON_EMPTY),
     Topic("topic", Option.OptionalRequired.Required, Option.AppearsByDefault.True, ActionParameter.Type.TEXT, "", "The topic the record will be appended to.", DefaultArgumentValidator.NON_EMPTY),
     Key("key", Option.OptionalRequired.Optional, Option.AppearsByDefault.False, ActionParameter.Type.TEXT, "", "The key that will be included in the record.", DefaultArgumentValidator.NON_EMPTY),
-    Message("message", Option.OptionalRequired.Required, Option.AppearsByDefault.True, ActionParameter.Type.TEXT, "", "The record contents", DefaultArgumentValidator.NON_EMPTY);
-
+    Message("message", Option.OptionalRequired.Required, Option.AppearsByDefault.True, ActionParameter.Type.TEXT, "", "The record contents", DefaultArgumentValidator.NON_EMPTY),
+    Headers("headers", Option.OptionalRequired.Optional, AppearsByDefault.True, ActionParameter.Type.TEXT, "", "Headers that will be included in the record. Format is the following: `Key=Value,Key=Value`. Delimiters `=` and `,` can be escaped using `\\` if present in either key or value", DefaultArgumentValidator.NON_EMPTY);
     private final String name;
     private final Option.OptionalRequired optionalRequired;
     private final Option.AppearsByDefault appearsByDefault;

@@ -10,12 +10,15 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.lang.String.format;
 
 public final class KafkaConnectActionEngine implements ActionEngine {
     private Properties props;
     private String connectionName;
-
+    private static final Logger LOGGER = Logger.getLogger(KafkaConnectActionEngine.class.getName());
 
     private void parseParameters(List<ActionParameter> parameters)
             throws ClassNotFoundException {
@@ -44,19 +47,14 @@ public final class KafkaConnectActionEngine implements ActionEngine {
 
         try {
             parseParameters(parameters);
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (ClassNotFoundException classNotFoundException) {
+            LOGGER.log(Level.WARNING, "Error while parsing parameters", classNotFoundException);
         }
 
         appendLineToStringBuilder(requestBuilder, "Kafka connect request");
         appendLineToStringBuilder(requestBuilder, "Connection name: " + this.connectionName);
         appendLineToStringBuilder(requestBuilder, "Kafka properties:");
-
-        Set<String> set = props.stringPropertyNames();
-        for (String key : set) {
-            appendLineToStringBuilder(requestBuilder, key + " : " + props.getProperty(key));
-        }
-
+        props.stringPropertyNames().forEach(key -> appendLineToStringBuilder(requestBuilder, format("%s : %s ", key, props.getProperty(key))));
 
         sampleResult.sampleStart();
 
@@ -68,11 +66,11 @@ public final class KafkaConnectActionEngine implements ActionEngine {
             sampleResult.setStatusCode("KAFKA-CONNECT-OK");
             sampleResult.setRequestContent(requestBuilder.toString());
             sampleResult.setResponseContent("Kafka producer created successfully");
-        } catch (RuntimeException e) {
+        } catch (RuntimeException runtimeException) {
             sampleResult.setError(true);
             sampleResult.setStatusCode("KAFKA-CONNECT-FAILED");
             sampleResult.setRequestContent(requestBuilder.toString());
-            sampleResult.setResponseContent("Connection to Kafka broker failed! \n" + e.getMessage());
+            sampleResult.setResponseContent("Connection to Kafka broker failed!\n" + runtimeException.getMessage());
             return sampleResult;
         }
 
