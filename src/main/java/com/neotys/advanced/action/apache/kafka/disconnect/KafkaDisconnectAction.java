@@ -37,7 +37,7 @@ public final class KafkaDisconnectAction implements Action {
 
     @Override
     public List<ActionParameter> getDefaultActionParameters() {
-        final List<ActionParameter> parameters = new ArrayList<ActionParameter>();
+        final List<ActionParameter> parameters = new ArrayList<>();
 
         KafkaDisconnectOption[] arrayOfConnectOption;
         int j = (arrayOfConnectOption = KafkaDisconnectOption.values()).length;
@@ -63,11 +63,7 @@ public final class KafkaDisconnectAction implements Action {
 
     @Override
     public String getDescription() {
-        StringBuilder description = new StringBuilder();
-
-        description.append("Close Kafka Connection. I.e close the producer. \nMore information can be found here : http://kafka.apache.org/0102/documentation/#producerconfigs\n\n" + Arguments.getArgumentDescriptions(KafkaDisconnectOption.values()));
-
-        return description.toString();
+        return "Close Kafka Connection. I.e close the producer. \nMore information can be found here : https://kafka.apache.org/0102/documentation/#producerconfigs\n\n" + Arguments.getArgumentDescriptions(KafkaDisconnectOption.values());
     }
 
     @Override

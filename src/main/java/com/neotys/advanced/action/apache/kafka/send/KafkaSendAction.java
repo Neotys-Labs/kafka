@@ -37,7 +37,7 @@ public final class KafkaSendAction implements Action {
 
     @Override
     public List<ActionParameter> getDefaultActionParameters() {
-        final List<ActionParameter> parameters = new ArrayList<ActionParameter>();
+        final List<ActionParameter> parameters = new ArrayList<>();
 
         KafkaSendOption[] arrayOfConnectOption;
         int j = (arrayOfConnectOption = KafkaSendOption.values()).length;
@@ -63,11 +63,7 @@ public final class KafkaSendAction implements Action {
 
     @Override
     public String getDescription() {
-        StringBuilder description = new StringBuilder();
-
-        description.append("Send Kafka Message to a topic.\nMore information can be found here : http://kafka.apache.org/0102/documentation/#producerconfigs\n\n" + Arguments.getArgumentDescriptions(KafkaSendOption.values()));
-
-        return description.toString();
+        return "Send Kafka Message to a topic.\nMore information can be found here : https://kafka.apache.org/0102/documentation/#producerconfigs\n\n" + Arguments.getArgumentDescriptions(KafkaSendOption.values());
     }
 
     @Override

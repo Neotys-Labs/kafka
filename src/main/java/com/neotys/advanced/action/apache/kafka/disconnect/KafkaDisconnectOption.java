@@ -16,7 +16,7 @@ enum KafkaDisconnectOption implements com.neotys.action.argument.Option {
     private final String description;
     private final ArgumentValidator argumentValidator;
 
-    private KafkaDisconnectOption(String name, Option.OptionalRequired optionalRequired, Option.AppearsByDefault appearsByDefault, ActionParameter.Type type, String defaultValue, String description, ArgumentValidator argumentValidator) {
+    KafkaDisconnectOption(String name, Option.OptionalRequired optionalRequired, Option.AppearsByDefault appearsByDefault, ActionParameter.Type type, String defaultValue, String description, ArgumentValidator argumentValidator) {
         this.name = name;
         this.optionalRequired = optionalRequired;
         this.appearsByDefault = appearsByDefault;

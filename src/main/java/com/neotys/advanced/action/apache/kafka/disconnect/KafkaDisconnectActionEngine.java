@@ -12,8 +12,7 @@ import java.util.List;
 public final class KafkaDisconnectActionEngine implements ActionEngine {
     private String connectionName;
 
-    private void parseParameters(List<ActionParameter> parameters)
-            throws ClassNotFoundException {
+    private void parseParameters(List<ActionParameter> parameters) {
 
         for (ActionParameter parameter : parameters) {
             String parameterName = parameter.getName().toLowerCase();

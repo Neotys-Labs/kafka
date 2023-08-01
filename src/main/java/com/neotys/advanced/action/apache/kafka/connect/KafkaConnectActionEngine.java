@@ -20,8 +20,7 @@ public final class KafkaConnectActionEngine implements ActionEngine {
     private String connectionName;
     private static final Logger LOGGER = Logger.getLogger(KafkaConnectActionEngine.class.getName());
 
-    private void parseParameters(List<ActionParameter> parameters)
-            throws ClassNotFoundException {
+    private void parseParameters(List<ActionParameter> parameters) {
         this.props = new Properties();
         this.props.put("key.serializer", StringSerializer.class);
         this.props.put("value.serializer", StringSerializer.class);

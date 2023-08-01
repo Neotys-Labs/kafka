@@ -33,8 +33,7 @@ public final class KafkaSendActionEngine implements ActionEngine {
     private String headers;
 
 
-    private void parseParameters(List<ActionParameter> parameters)
-            throws ClassNotFoundException {
+    private void parseParameters(List<ActionParameter> parameters) {
 
         for (ActionParameter parameter : parameters) {
             String parameterName = parameter.getName().toLowerCase();

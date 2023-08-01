@@ -38,7 +38,7 @@ public final class KafkaConnectAction implements Action {
 
     @Override
     public List<ActionParameter> getDefaultActionParameters() {
-        final List<ActionParameter> parameters = new ArrayList<ActionParameter>();
+        final List<ActionParameter> parameters = new ArrayList<>();
 
         KafkaConnectOption[] arrayOfConnectOption;
         int j = (arrayOfConnectOption = KafkaConnectOption.values()).length;
@@ -64,10 +64,7 @@ public final class KafkaConnectAction implements Action {
 
     @Override
     public String getDescription() {
-        StringBuilder description = new StringBuilder();
-
-        description.append("Connect to a Kafka broker.\nMore information can be found here : http://kafka.apache.org/0102/documentation/#producerconfigs\n\n" + Arguments.getArgumentDescriptions(KafkaConnectOption.values()));
-        return description.toString();
+        return "Connect to a Kafka broker.\nMore information can be found here : https://kafka.apache.org/0102/documentation/#producerconfigs\n\n" + Arguments.getArgumentDescriptions(KafkaConnectOption.values());
     }
 
     @Override
