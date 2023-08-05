@@ -10,16 +10,25 @@ import static com.neotys.advanced.action.apache.kafka.send.KafkaSendActionEngine
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class KafkaSendActionTest {
+class KafkaSendActionTest {
     @Test
-    public void shouldReturnType() {
+    void shouldReturnType() {
         final KafkaSendAction action = new KafkaSendAction();
         assertEquals("KafkaSend", action.getType());
     }
 
+    @Test
+    void givenNullHeaderWhenParsedThenEmptySet() {
+        //given
+        String nullHeader = null;
+        //when
+        Set<Header> headers = parseHeadersOption(nullHeader);
+        //then
+        assertEquals(0, headers.size());
+    }
 
     @Test
-    public void givenValidHeaderWhenParsedThenNoneDiscarded() {
+    void givenValidHeaderWhenParsedThenNoneDiscarded() {
         //given
         String[] valids = {
                 "1key=value1",
@@ -37,14 +46,13 @@ public class KafkaSendActionTest {
     }
 
     @Test
-    public void givenValidAndInvalidHeaderWhenParsedThenNoneDiscarded() {
+    void givenValidAndInvalidHeadersWhenParsedThenOnlyValidPreserved() {
         //given
         String[] mixed = {
 
                 "=",//invalid
                 "1key=value1",//valid
                 "2key=value2",//valid
-                "key=",//invalid
                 "3key=value\\,value3", //valid
                 "4key=value4",//valid
                 "=Value",//invalid
@@ -62,13 +70,69 @@ public class KafkaSendActionTest {
 
     }
 
+
     @Test
-    public void givenInvalidHeaderWhenParsedThenAllDiscarded() {
+    void givenRepetitiveKeyWhenParsedThenOnlyLastIsKept() {
+        //given
+        String expectedValue = "value4";
+        String[] valids = {
+                "key1=value0",
+                "key1=  value1",
+                " key1 = value2",
+                " key1= value3",
+                "key1 = " + expectedValue
+        };
+        //when
+        Set<Header> headers = parseHeadersOption(String.join(",", valids));
+        //Then
+        assertEquals(1, headers.size());
+        assertEquals(expectedValue, new String(headers.iterator().next().value()));
+    }
+
+    @Test
+    void givenWhiteSpacesInKeyValueWhenParsedThenTrimmed() {
+        //given
+        String nonEmptyValue = "value";
+        String[] valids = {
+                "key1=  ",
+                " key2 = " + nonEmptyValue + " "
+        };
+        //when
+        Set<Header> headers = parseHeadersOption(String.join(",", valids));
+        //Then
+        assertEquals(2, headers.stream().filter(header -> header.key().length() == 4).count());
+        assertEquals(nonEmptyValue.length(), headers.stream().mapToInt(header -> header.value().length).sum());
+    }
+
+    @Test
+    void givenValidKeyWithEmptyValueWhenParsedThenValid() {
+        //given
+        String[] valids = {
+                "key1=",
+                "key2=  ",
+                " key3 =    "
+        };
+        //when
+        Set<Header> headers = parseHeadersOption(String.join(",", valids));
+        //Then
+        assertEquals(3, headers.size());
+    }
+
+    @Test
+    void givenInvalidHeaderWhenParsedThenAllDiscarded() {
         //given
         String[] invalids = {
-                "key=",
                 "=Value",
-                "="
+                "=",
+                " = ",
+                "   =blankKey",
+                "noKeyValueDelimiter",
+                ",",
+                "===============",
+                ",,",
+                ",=",
+                "==",
+                "=,"
         };
         //when
         Set<Header> headers = parseHeadersOption(String.join(",", invalids));

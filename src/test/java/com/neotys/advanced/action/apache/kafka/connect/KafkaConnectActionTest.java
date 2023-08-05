@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class KafkaConnectActionTest {
+class KafkaConnectActionTest {
     @Test
-    public void shouldReturnType() {
+    void shouldReturnType() {
         final KafkaConnectAction action = new KafkaConnectAction();
         assertEquals("KafkaConnect", action.getType());
     }

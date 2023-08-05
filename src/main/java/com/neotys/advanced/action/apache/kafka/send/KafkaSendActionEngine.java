@@ -27,7 +27,7 @@ public final class KafkaSendActionEngine implements ActionEngine {
     private String message;
     private String key;
     private String connectionName;
-    private String headers;
+    private Set<Header> headers;
 
 
     private void parseParameters(List<ActionParameter> parameters) {
@@ -49,7 +49,7 @@ public final class KafkaSendActionEngine implements ActionEngine {
                     this.connectionName = parameter.getValue();
                     break;
                 case "headers":
-                    this.headers = parameter.getValue();
+                    this.headers = parseHeadersOption(parameter.getValue());
                 default:
                     break;
             }
@@ -88,7 +88,7 @@ public final class KafkaSendActionEngine implements ActionEngine {
         sampleResult.sampleStart();
 
         try {
-            ProducerRecord<String, String> record = new ProducerRecord<>(this.topic, null, null, this.key, this.message, parseHeadersOption(this.headers));
+            ProducerRecord<String, String> record = new ProducerRecord<>(this.topic, null, null, this.key, this.message, this.headers);
             Future<RecordMetadata> response = producer.send(record);
             appendLineToStringBuilder(responseBuilder, "Offset : " + response.get().offset());
             appendLineToStringBuilder(responseBuilder, "Timestamp : " + response.get().timestamp());
@@ -124,7 +124,7 @@ public final class KafkaSendActionEngine implements ActionEngine {
 
     static class KafkaHeaderParser {
 
-        private static final Pattern KEY_PAIR_PATTERN = Pattern.compile("([^=,]+=[^=,]+)");
+        private static final Pattern KEY_PAIR_PATTERN = Pattern.compile("([^,]+=[^,]*)");
 
         private KafkaHeaderParser() {
             // no-op
@@ -146,14 +146,20 @@ public final class KafkaSendActionEngine implements ActionEngine {
                 int splitAt = normalized.indexOf('=', from);
                 headerMap.put(
                         // Remove escapes from the key and value.
-                        headerOption.substring(from, splitAt).replaceAll("\\\\([=,])|\\\\$", "$1"),
-                        headerOption.substring(splitAt + 1, to).replaceAll("\\\\([=,])|\\\\$", "$1")
+                        headerOption.substring(from, splitAt).replaceAll("\\\\([=,])|\\\\$", "$1").trim(),
+                        headerOption.substring(splitAt + 1, to).replaceAll("\\\\([=,])|\\\\$", "$1").trim()
                 );
             }
 
             //transform the map into a set of RecordHeader
             return unmodifiableSet(headerMap.entrySet().stream()
-                    .map(entry -> new RecordHeader(entry.getKey(), entry.getValue().getBytes(UTF_8)))
+                    .filter(entry -> !entry.getKey().isEmpty()) //skip entries with empty keys
+                    .map(entry -> new RecordHeader(entry.getKey(), entry.getValue().getBytes(UTF_8)) {
+                        @Override
+                        public String toString() {
+                            return String.format("%s=%s", key(), new String(value(), UTF_8));
+                        }
+                    })
                     .collect(toSet()));
         }
     }
