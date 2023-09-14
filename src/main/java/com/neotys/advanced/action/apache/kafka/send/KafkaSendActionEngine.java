@@ -27,7 +27,7 @@ public final class KafkaSendActionEngine implements ActionEngine {
     private String message;
     private String key;
     private String connectionName;
-    private Set<Header> headers;
+    private Set<Header> headers = Collections.emptySet();
 
 
     private void parseParameters(List<ActionParameter> parameters) {
@@ -50,6 +50,7 @@ public final class KafkaSendActionEngine implements ActionEngine {
                     break;
                 case "headers":
                     this.headers = parseHeadersOption(parameter.getValue());
+                    break;
                 default:
                     break;
             }
