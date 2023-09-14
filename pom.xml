@@ -5,7 +5,7 @@
     <groupId>com.neotys.advanced.action.apache.kafka</groupId>
     <artifactId>kafka-producer</artifactId>
     <name>kafka-producer</name>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.3.0-SNAPSHOT</version>
 
     <properties>
         <neotys-custom-action-api.version>2.13.0</neotys-custom-action-api.version>
