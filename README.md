@@ -17,11 +17,11 @@ More information on Kafka Producers can be found [here](http://kafka.apache.org/
 ## Installation
  
  1. Download the [latest release](https://github.com/Neotys-Labs/kafka/releases/latest)
- 2. Read the NeoLoad documentation to see [How to install a custom Advanced Action](https://www.neotys.com/documents/doc/neoload/latest/en/html/#25928.htm)
+ 2. Read the NeoLoad documentation to see [How to install a custom Advanced Action](https://documentation.tricentis.com/neoload/latest/en/content/reference_guide/manage_advanced_actions.htm)
  
  ## Usage
  
- 1. Read the NeoLoad documentation to see [How to use an Advanced action](https://www.neotys.com/documents/doc/neoload/latest/en/html/#25929.htm)
+ 1. Read the NeoLoad documentation to see [How to use an Advanced action](https://documentation.tricentis.com/neoload/latest/en/content/reference_guide/manage_advanced_actions.htm)
  
  ## Parameters
  | Name                        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
