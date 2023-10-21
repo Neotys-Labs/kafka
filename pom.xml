@@ -11,7 +11,7 @@
         <neotys-custom-action-api.version>2.13.0</neotys-custom-action-api.version>
         <neotys-custom-action-util.version>1.3.3</neotys-custom-action-util.version>
         <junit.version>5.7.0</junit.version>
-        <kafka-clients.version>3.5.1</kafka-clients.version>
+        <kafka-clients.version>3.6.0</kafka-clients.version>
         <slf4j-api.version>2.0.7</slf4j-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
