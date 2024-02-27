@@ -1,3 +1,3 @@
 @Library('jenkins-groovy-lib')
 import startNlWebIndus
-startNlWebIndus()
+startNlWebIndus([products: ['NeoLoadGui']])
