@@ -1,3 +1,0 @@
-com.neotys.advanced.action.apache.kafka.connect.KafkaConnectAction
-com.neotys.advanced.action.apache.kafka.disconnect.KafkaDisconnectAction
-com.neotys.advanced.action.apache.kafka.send.KafkaSendAction
